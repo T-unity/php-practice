@@ -4,8 +4,10 @@
 $title = '';
 $author = '';
 $status = '';
-$evaluation = '';
-$impressions = '';
+$score = '';
+$summary = '';
+
+$reviews = [];
 
 while (true) {
   echo '読書ログを登録' . PHP_EOL;
@@ -27,23 +29,34 @@ while (true) {
     $status = trim(fgets(STDIN));
 
     echo '評価（5点満点の整数）：';
-    $evaluation = trim(fgets(STDIN));
+    $score = trim(fgets(STDIN));
 
     echo '感想：';
-    $impressions = trim(fgets(STDIN));
+    $summary = trim(fgets(STDIN));
 
     echo '登録が完了しました' . PHP_EOL . PHP_EOL;
 
+    $reviews[] = [
+      'title' => $title,
+      'author' => $author,
+      'status' => $status,
+      'score' => $score,
+      'summary' => $summary,
+    ];
+
   } elseif ($num === '2') {
-
     echo '読書ログを表示します' . PHP_EOL;
-    echo '書籍名:' . $title . PHP_EOL;
-    echo '著者名:' . $author . PHP_EOL;
-    echo '読書状況:' . $status . PHP_EOL;
-    echo '評価:' . $evaluation . PHP_EOL;
-    echo '感想:' . $impressions . PHP_EOL;
-
+    foreach ($reviews as $review) {
+    echo '書籍名:' . $review['title'] . PHP_EOL;
+    echo '著者名:' . $review['author'] . PHP_EOL;
+    echo '読書状況:' . $review['status'] . PHP_EOL;
+    echo '評価:' . $review['score'] . PHP_EOL;
+    echo '感想:' . $review['summary'] . PHP_EOL;
+    echo '----------' . PHP_EOL;
+    }
   } elseif ($num === '9') {
     break;
   }
 }
+
+var_export($reviews);
